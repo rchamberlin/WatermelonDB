@@ -21,6 +21,16 @@ function DatabaseProvider({ children, database }: Props): React$Element<typeof P
   return <Provider value={database}>{children}</Provider>
 }
 
+function useDatabase() {
+  const context = React.useContext(DatabaseContext)
+
+  if (context === undefined) {
+    throw new Error('useDatabase must be used within a DatabaseProvider')
+  }
+
+  return context
+}
+
 export { Consumer as DatabaseConsumer }
 export { default as withDatabase } from './withDatabase'
 export default DatabaseProvider
